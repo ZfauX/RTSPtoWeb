@@ -126,6 +126,10 @@
   width: 14.285%;
   height:  14.29%;
 }
+.grid-wrapper .player.grid-64{
+  width: 12.5%;
+  height:  12.5%;
+}
 .grid-wrapper .player video{
   height: 100%;
   width: 100%;
