@@ -46,6 +46,9 @@
                 <div class="custom-dropdown-item with-img" onclick="changeBackground('white')">
                   <img src="/../static/img/white.jpg" />
                 </div>
+				<div class="custom-dropdown-item with-img" onclick="changeBackground('era')">
+                  <img src="/../static/img/era.jpg" />
+                </div>
               </div>
             </li>
             {{end}}
@@ -54,7 +57,7 @@
               <div aria-labelledby="defaultGrid" class="dropdown-menu dropdown-menu-right custom-dropdown">
                 <div class="custom-dropdown-item grid-maker" grid="1" onclick="gridMaker(1)">
                   1 x 1
-	        </div>
+				</div>
                 <div class="custom-dropdown-item grid-maker" grid="4" onclick="gridMaker(4)">
                   2 x 2
                 </div>
@@ -79,16 +82,19 @@
                 <div class="custom-dropdown-item grid-maker" grid="49" onclick="gridMaker(49)">
                   7 x 7
                 </div>
+				<div class="custom-dropdown-item grid-maker" grid="64" onclick="gridMaker(64)">
+                  8 x 8
+                </div>
               </div>
             </li>
               {{ if .query.controls}}
             <li class="nav-item dropdown">
-              <input type="hidden" id="defaultPlayer" value="mse" />
-              <a id="defaultPlayerMenu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">MSE</a>
+              <input type="hidden" id="defaultPlayer" value="webrtc" />
+              <a id="defaultPlayerMenu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">WebRTC</a>
               <ul aria-labelledby="defaultPlayerMenu" class="dropdown-menu  custom-dropdown">
+				<li><a href="#" class="dropdown-item" onclick="defaultPlayer('webrtc',this)">WebRTC</a></li>
                 <li><a href="#" class="dropdown-item" onclick="defaultPlayer('mse',this)">MSE</a></li>
                 <li><a href="#" class="dropdown-item" onclick="defaultPlayer('hls',this)">HLS</a></li>
-                <li><a href="#" class="dropdown-item" onclick="defaultPlayer('webrtc',this)">WebRTC</a></li>
               </ul>
             </li>
             <li class="nav-item">
@@ -217,7 +223,7 @@
   }
 
   function gridMaker(col = 4) {
-    let grid_sizes=[1,4,6,9,12,16,25,36,49];
+    let grid_sizes=[1,4,6,9,12,16,25,36,49,64];
     col = parseInt(col);
     col=grid_sizes.filter(v => v >= col)[0]||4;
     let colW;
@@ -237,7 +243,6 @@
       case 16:
         colW = 'grid-16';
         break;
-
       case 25:
         colW = 'grid-25';
         break;
@@ -246,6 +251,9 @@
         break;
       case 49:
         colW = 'grid-49';
+        break;
+	  case 64:
+        colW = 'grid-64';
         break;
       default:
         colW = '';
@@ -439,15 +447,15 @@
           });
         }
         break;
-      case 'webrtc':
-        players[index] = new WebRTCPlayer(uuid, videoPlayerVar, channel);
-        players[index].playWebrtc();
+	  case 'mse':
+		players[index] = new msePlayer(uuid, videoPlayerVar, channel);
+        players[index].playMse();
         break;
-      case 'mse':
+      case 'webrtc':
       default:
 
-        players[index] = new msePlayer(uuid, videoPlayerVar, channel);
-        players[index].playMse();
+        players[index] = new WebRTCPlayer(uuid, videoPlayerVar, channel);
+        players[index].playWebrtc();
         break;
     }
 
@@ -973,8 +981,11 @@
       case 'white':
         back += 'white.jpg'
         break;
-      default:
+	  case 'back':
         back += 'back.jpg'
+        break;
+      default:
+        back += 'era.jpg'
     }
     $('.img-background').css('background-image', 'url("' + back + '")');
   }
