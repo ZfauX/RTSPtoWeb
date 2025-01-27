@@ -36,14 +36,14 @@
               </div>
             </div>
             <div class="btn-group">
-              <input type="hidden" id="defaultPlayer" value="mse" />
+              <input type="hidden" id="defaultPlayer" value="webrtc" />
               <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                MSE
+                WebRTC
               </button>
               <div class="dropdown-menu dropdown-menu-right" role="menu">
+				<a href="#" class="dropdown-item" onclick="defaultPlayer('webrtc',this)">WebRTC</a>
                 <a href="#" class="dropdown-item" onclick="defaultPlayer('mse',this)">MSE</a>
                 <a href="#" class="dropdown-item" onclick="defaultPlayer('hls',this)">HLS</a>
-                <a href="#" class="dropdown-item" onclick="defaultPlayer('webrtc',this)">WebRTC</a>
               </div>
             </div>
 
@@ -249,15 +249,15 @@
           });
         }
         break;
-      case 'webrtc':
-        players[index] = new WebRTCPlayer(uuid, videoPlayer, channel);
-        players[index].playWebrtc();
-        break;
       case 'mse':
-      default:
-
         players[index] = new msePlayer(uuid, videoPlayer, channel);
         players[index].playMse();
+        break;
+      case 'webrtc':
+      default:
+
+		players[index] = new WebRTCPlayer(uuid, videoPlayer, channel);
+        players[index].playWebrtc();
         break;
     }
 
