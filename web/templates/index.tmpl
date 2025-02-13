@@ -90,14 +90,6 @@
                     </div>
                   </div>
                   <div class="input-group-prepend">
-                    <a class="btn btn-info btn-flat btn-xs" data-toggle="dropdown" href="#"><i class="fas fa-play"></i> MSE</a>
-                    <div class="dropdown-menu">
-                      {{ range $k, $v := .Channels }}
-                      <a class="dropdown-item" href="/pages/player/mse/{{$key}}/{{$k}}">Channel {{$k}}</a>
-                      {{end}}
-                    </div>
-                  </div>
-                  <div class="input-group-prepend">
                     <a class="btn btn-info btn-flat btn-xs" data-toggle="dropdown" href="#"><i class="fas fa-play"></i> ALL</a>
                     <div class="dropdown-menu">
                       {{ range $k, $v := .Channels }}
